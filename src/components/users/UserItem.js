@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-const UserItem = ({ user: { login, avatar_url, html_url } }) => {
+const UserItem = ({ user: { id, login, avatar_url, html_url } }) => {
 	return (
 		<div className='card text-center'>
 			<img
