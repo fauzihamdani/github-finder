@@ -11,7 +11,7 @@ const User = ({
 	getRepos,
 	getUserRepos,
 	repos,
-	match,
+	match, // > match come form .props
 }) => {
 	useEffect(() => {
 		getUser(match.params.login);
