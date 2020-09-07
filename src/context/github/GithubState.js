@@ -23,21 +23,37 @@ const GithubState = props => {
 
 	//Search User
 	const searchUsers = async text => {
+		//<< proccess search user
 		setLoading();
 
 		const res = await axios.get(
 			`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
 		);
 		dispatch({
-			type: SEARCH_USERS,
+			//<<send to github reducer
+			type: SEARCH_USERS, //<< send type. to SEARCH_USER on githubReducer.js
 			payload: res.data.items, // payload > the data wich we want to send
 		});
 	};
 	//Get User
+	const getUser = async username => {
+		setLoading();
+
+		const res = await axios.get(
+			`https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+		);
+		dispatch({
+			type: GET_USER,
+			payload: res.data,
+		});
+	};
 
 	//Get repos
 
 	//Clear Users
+	const clearUsers = () => {
+		dispatch({ type: CLEAR_USERS });
+	};
 
 	//Set Loading
 	const setLoading = () => {
@@ -51,6 +67,8 @@ const GithubState = props => {
 				repos: state.repos,
 				loading: state.loading,
 				searchUsers,
+				clearUsers,
+				getUser,
 			}}>
 			{props.children}
 		</GithubContext.Provider>
